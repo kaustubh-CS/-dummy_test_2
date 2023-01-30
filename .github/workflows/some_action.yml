@@ -1,0 +1,23 @@
+on: [push]
+
+jobs:
+  upload-file:
+    runs-on: ubuntu-latest
+    name: Upload test report to ContentStack Assets
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Upload Test Report
+        id: upload
+        uses: kaustubh-CS/dummy_test_1@v1.0
+        with:
+          file_path: ./dummy_data_3.txt
+          management_token: ${{ secrets.MANAGEMENT_TOKEN }}
+          api_key: bltea563727a45c6e65
+          folder_uid: bltc8eae66c9007b9d6
+
+      - name: Link for Report
+        run: echo "${{ steps.upload.outputs.link }}"
